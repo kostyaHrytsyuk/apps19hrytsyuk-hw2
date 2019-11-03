@@ -86,11 +86,11 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     public Object getFirst() {
-        return isEmpty() ? new Node() : this.listHead;
+        return isEmpty() ? new Object() : this.listHead.getVal();
     }
 
     public Object getLast() {
-        return isEmpty() ? new Node() : this.listTail;
+        return isEmpty() ? new Object() : this.listTail.getVal();
     }
 
     public ImmutableLinkedList removeFirst() {
