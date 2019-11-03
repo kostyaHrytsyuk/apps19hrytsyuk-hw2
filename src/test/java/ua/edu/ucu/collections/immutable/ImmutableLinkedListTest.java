@@ -233,7 +233,7 @@ public class ImmutableLinkedListTest {
     }
 
     @Test
-    public void set() {
+    public void testSet() {
         Stack stack = new Stack();
         int index = 2;
         int expectedLength = this.linkedList.size();
@@ -242,7 +242,6 @@ public class ImmutableLinkedListTest {
 
         assertEquals(expectedLength, this.linkedList.size());
         assertEquals(stack, this.linkedList.get(index));
-
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
@@ -274,22 +273,33 @@ public class ImmutableLinkedListTest {
 
 
     @Test
-    public void size() {
+    public void testSize() {
+        int expectedValue = testArr.length;
+        assertEquals(expectedValue ,this.linkedList.size());
     }
 
     @Test
-    public void clear() {
+    public void testClear() {
+        assertTrue(this.linkedList.clear() instanceof ImmutableLinkedList);
     }
 
     @Test
-    public void isEmpty() {
+    public void testIsEmptyForFilledList() {
+        assertFalse(this.linkedList.isEmpty());
     }
 
     @Test
-    public void toArray() {
+    public void testIsEmptyForEmptyList() {
+        assertTrue(new ImmutableLinkedList().isEmpty());
+    }
+
+    @Test
+    public void testToArray() {
+        assertTrue(this.linkedList.toArray() instanceof Object[]);
     }
 
     @Test
     public void testToString() {
+        assertTrue(this.linkedList.toString() instanceof String);
     }
 }
