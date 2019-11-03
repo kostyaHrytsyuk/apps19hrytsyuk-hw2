@@ -7,7 +7,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList() { }
 
-    public ImmutableLinkedList(Object[] arr){
+    public ImmutableLinkedList(Object[] arr) {
         ImmutableLinkedList l = addAll(arr);
         this.listHead = l.listHead;
         this.listTail = l.listTail;
@@ -23,7 +23,8 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public ImmutableLinkedList add(Object e) {
         checkNull(e);
-        ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        ImmutableLinkedList imList =
+                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node node = new Node(e);
         if (imList.isEmpty()) {
             imList.listHead = node;
@@ -31,8 +32,6 @@ public class ImmutableLinkedList implements ImmutableList {
             setRelations(imList.listHead, node);
         } else {
             setRelations(this.listTail, node);
-//            node.setHead(imList.listTail);
-//            imList.listTail.setTail(node);
             imList.listTail = node;
         }
         imList.length++;
@@ -43,14 +42,13 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList add(int index, Object e) {
         checkIndex(index);
         checkNull(e);
-        ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        ImmutableLinkedList imList =
+                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node node = new Node(e);
         Node tempNode = imList.getNode(index);
 
         node.setTail(tempNode.getTail());
         setRelations(tempNode, node);
-//        node.setHead(tempNode);
-//        tempNode.setTail(node);
         imList.length++;
         return imList;
     }
@@ -59,7 +57,8 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList addAll(Object[] c) {
         checkNull(c);
         int j = 1;
-        ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        ImmutableLinkedList imList =
+                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node curr;
         if (imList.isEmpty()) {
             imList = imList.addFirst(c[0]);
@@ -78,8 +77,6 @@ public class ImmutableLinkedList implements ImmutableList {
         for (int i = j; i < c.length; i++) {
             tempNode = new Node(c[i]);
             setRelations(curr, tempNode);
-//            tempNode.setHead(imList.listTail);
-//            imList.listTail.setTail(tempNode);
             curr = tempNode;
         }
         imList.listTail = curr;
@@ -110,7 +107,8 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList addFirst(Object e) {
         checkNull(e);
         Node node = new Node(e);
-        ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        ImmutableLinkedList imList =
+                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
 
         if (imList.isEmpty()) {
             return add(e);
@@ -124,7 +122,8 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList addLast(Object e) {
         Node node = new Node(e);
-        ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        ImmutableLinkedList imList =
+                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
 
         if (imList.isEmpty()) {
             return add(e);
@@ -157,7 +156,8 @@ public class ImmutableLinkedList implements ImmutableList {
         if (isEmpty()) {
             return new ImmutableLinkedList();
         } else {
-            ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+            ImmutableLinkedList imList =
+                    new ImmutableLinkedList(this.listHead, this.listTail, this.length);
             imList.listHead = imList.listHead.getTail();
             imList.length--;
             return imList;
@@ -168,7 +168,8 @@ public class ImmutableLinkedList implements ImmutableList {
         if (isEmpty()) {
             return new ImmutableLinkedList();
         } else {
-            ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+            ImmutableLinkedList imList =
+                    new ImmutableLinkedList(this.listHead, this.listTail, this.length);
             imList.listTail.setHead(imList.listTail.getHead());
             imList.length--;
             return imList;
@@ -187,7 +188,8 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public ImmutableLinkedList remove(int index) {
         checkIndex(index);
-        ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        ImmutableLinkedList imList =
+                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node exNode = imList.getNode(index);
         Node exNodeParent = exNode.getHead();
         exNodeParent.setTail(exNode.getTail());
@@ -199,7 +201,8 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList set(int index, Object e) {
         checkIndex(index);
         checkNull(e);
-        ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        ImmutableLinkedList imList =
+                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         imList.getNode(index).setVal(e);
         return imList;
     }
@@ -292,49 +295,49 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     private static class Node {
-        private Node _head;
-        private Node _tail;
-        private Object _val;
+        private Node head;
+        private Node tail;
+        private Object val;
 
         public Node() { }
 
         public Node(Object val) {
-            this._val = val;
+            this.val = val;
         }
 
         public Node(Node head, Object val) {
-            this._head = head;
-            this._val = val;
+            this.head = head;
+            this.val = val;
         }
 
         public Node(Node head, Node tail, Object val) {
-            this._head = head;
-            this._tail = tail;
-            this._val = val;
+            this.head = head;
+            this.tail = tail;
+            this.val = val;
         }
 
         public Node getHead() {
-            return _head;
+            return head;
         }
 
         public void setHead(Node head) {
-            this._head = head;
+            this.head = head;
         }
 
         public Node getTail() {
-            return _tail;
+            return tail;
         }
 
         public void setTail(Node tail) {
-            this._tail = tail;
+            this.tail = tail;
         }
 
         public Object getVal() {
-            return _val;
+            return val;
         }
 
         public void setVal(Object val) {
-            this._val = val;
+            this.val = val;
         }
     }
 
