@@ -7,6 +7,13 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList() { }
 
+    public ImmutableLinkedList(Object[] arr){
+        ImmutableLinkedList l = addAll(arr);
+        this.listHead = l.listHead;
+        this.listTail = l.listTail;
+        this.length = l.length;
+    }
+
     private ImmutableLinkedList(Node head, Node tail, int length) {
         this.listHead = head;
         this.listTail = tail;
@@ -51,25 +58,31 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public ImmutableLinkedList addAll(Object[] c) {
         checkNull(c);
-        int j;
+        int j = 1;
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
+        Node curr;
         if (imList.isEmpty()) {
-            imList.listHead.setVal(c[0]);
-            imList.listTail = imList.listHead;
+            imList = imList.addFirst(c[0]);
+            curr = imList.listHead;
             j = 1;
+        } else if (imList.length == 1) {
+            curr = imList.listHead;
+            setRelations(imList.listHead, imList.listTail);
         }
         else {
+            curr = imList.listTail;
             j = 0;
         }
         Node tempNode;
 
         for (int i = j; i < c.length; i++) {
             tempNode = new Node(c[i]);
-            setRelations(imList.listTail, tempNode);
+            setRelations(curr, tempNode);
 //            tempNode.setHead(imList.listTail);
 //            imList.listTail.setTail(tempNode);
-            imList.listTail = tempNode;
+            curr = tempNode;
         }
+        imList.listTail = curr;
         imList.length += c.length;
         return imList;
     }
@@ -208,7 +221,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public int size() {
-        return length;
+        return this.length;
     }
 
     @Override

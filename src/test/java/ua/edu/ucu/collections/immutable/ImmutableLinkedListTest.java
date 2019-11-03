@@ -7,10 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ImmutableLinkedListTest {
+    private ImmutableLinkedList linkedList;
 
     @Before
-    public void setUp(){
-        ImmutableLinkedList linkedList = new ImmutableLinkedList();
+    public void setUp() {
+        Object[] arr = { 1, "Hi!", true, 2.78};
+        this.linkedList = new ImmutableLinkedList(arr);
     }
 
     @After
@@ -18,11 +20,17 @@ public class ImmutableLinkedListTest {
     }
 
     @Test
-    public void add() {
+    public void testAdd() {
+        Object o = 30;
+
+        int expectedLength = this.linkedList.size() + 1;
+
+        this.linkedList = this.linkedList.add(o);
+        assertEquals(this.linkedList.size(), expectedLength);
     }
 
-    @Test
-    public void testAdd() {
+    @Test(expected = NullPointerException.class)
+    public void testAddWithEmptyElement() {
     }
 
     @Test
