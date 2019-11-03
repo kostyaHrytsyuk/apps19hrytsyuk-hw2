@@ -9,7 +9,8 @@ import static org.junit.Assert.*;
 public class ImmutableLinkedListTest {
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
+        ImmutableLinkedList linkedList = new ImmutableLinkedList();
     }
 
     @After
