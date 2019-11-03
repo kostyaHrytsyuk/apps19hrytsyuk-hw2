@@ -9,6 +9,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     private ImmutableLinkedList(Node head) {
         this.listHead = head;
+        this.listTail = head;
     }
 
     @Override
@@ -95,11 +96,19 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     public Object getFirst() {
-        return isEmpty() ? new Object() : this.listHead.getVal();
+        if (isEmpty()) {
+            return new Object();
+        } else {
+            return this.listHead.getVal();
+        }
     }
 
     public Object getLast() {
-        return isEmpty() ? new Object() : this.listTail.getVal();
+        if (isEmpty()) {
+            return new Object();
+        } else {
+            return this.listTail.getVal();
+        }
     }
 
     public ImmutableLinkedList removeFirst() {
@@ -233,49 +242,49 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     private class Node {
-        private Node head;
-        private Node tail;
-        private Object val;
+        private Node _head;
+        private Node _tail;
+        private Object _val;
 
         public Node() {}
 
         public Node(Object val) {
-            this.val = val;
+            this._val = val;
         }
 
         public Node(Node head, Object val) {
-            this.head = head;
-            this.val = val;
+            this._head = head;
+            this._val = val;
         }
 
         public Node(Node head, Node tail, Object val) {
-            this.head = head;
-            this.tail = tail;
-            this.val = val;
+            this._head = head;
+            this._tail = tail;
+            this._val = val;
         }
 
         public Node getHead() {
-            return head;
+            return _head;
         }
 
         public void setHead(Node head) {
-            this.head = head;
+            this._head = head;
         }
 
         public Node getTail() {
-            return tail;
+            return _tail;
         }
 
         public void setTail(Node tail) {
-            this.tail = tail;
+            this._tail = tail;
         }
 
         public Object getVal() {
-            return val;
+            return _val;
         }
 
         public void setVal(Object val) {
-            this.val = val;
+            this._val = _val;
         }
     }
 

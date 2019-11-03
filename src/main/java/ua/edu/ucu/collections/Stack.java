@@ -6,6 +6,10 @@ import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
 public class Stack implements DataStructure {
     private ImmutableLinkedList linkedList;
 
+    public Stack() {
+        this.linkedList = new ImmutableLinkedList();
+    }
+
     public Stack(Object[] o) {
         this.linkedList = new ImmutableLinkedList().addAll(o);
     }

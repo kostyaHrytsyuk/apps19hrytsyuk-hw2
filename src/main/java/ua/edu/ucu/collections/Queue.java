@@ -6,6 +6,14 @@ import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
 public class Queue implements DataStructure {
     private ImmutableLinkedList linkedList;
 
+    public Queue () {
+        this.linkedList = new ImmutableLinkedList();
+    }
+
+    public Queue(Object[] o) {
+        this.linkedList = new ImmutableLinkedList().addAll(o);
+    }
+
     public Object peek() {
         return linkedList.getFirst();
     }
