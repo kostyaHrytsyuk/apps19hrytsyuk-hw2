@@ -1,13 +1,13 @@
 package ua.edu.ucu.collections.immutable;
 
 public class ImmutableLinkedList implements ImmutableList {
-    private ImmutableLinkedListNode listHead;
-    private ImmutableLinkedListNode listTail;
+    private Node listHead;
+    private Node listTail;
     private int length;
 
     public ImmutableLinkedList() {}
 
-    private ImmutableLinkedList(ImmutableLinkedListNode head) {
+    private ImmutableLinkedList(Node head) {
         this.listHead = head;
     }
 
@@ -15,7 +15,7 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList add(Object e) {
         checkNull(e);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead);
-        ImmutableLinkedListNode newNode = new ImmutableLinkedListNode(e);
+        Node newNode = new Node(e);
         newNode.setHead(imList.listTail);
         imList.listTail.setTail(newNode);
         imList.listTail = newNode;
@@ -28,8 +28,8 @@ public class ImmutableLinkedList implements ImmutableList {
         checkIndex(index);
         checkNull(e);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead);
-        ImmutableLinkedListNode newNode = new ImmutableLinkedListNode(e);
-        ImmutableLinkedListNode tempNode = imList.listHead;
+        Node newNode = new Node(e);
+        Node tempNode = imList.listHead;
         int counter = 0;
         while (counter != index) {
             tempNode = tempNode.getTail();
@@ -47,10 +47,10 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList addAll(Object[] c) {
         checkNull(c);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead);
-        ImmutableLinkedListNode tempNode;
+        Node tempNode;
 
         for (int i = 0; i < c.length; i++) {
-            tempNode = new ImmutableLinkedListNode(c[i]);
+            tempNode = new Node(c[i]);
             tempNode.setHead(imList.listTail);
             imList.listTail.setTail(tempNode);
             imList.listTail = tempNode;
@@ -64,11 +64,11 @@ public class ImmutableLinkedList implements ImmutableList {
         checkIndex(index);
         checkNull(c);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead);
-        ImmutableLinkedListNode curr = imList.getNode(index);
-        ImmutableLinkedListNode nodeTail = curr.getTail();
-        ImmutableLinkedListNode tempNode;
+        Node curr = imList.getNode(index);
+        Node nodeTail = curr.getTail();
+        Node tempNode;
         for (Object o : c) {
-            tempNode = new ImmutableLinkedListNode(o);
+            tempNode = new Node(o);
             curr.setTail(tempNode);
             curr = tempNode;
         }
@@ -86,11 +86,11 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     public Object getFirst() {
-        return isEmpty() ? new ImmutableLinkedList() : this.listHead;
+        return isEmpty() ? new Node() : this.listHead;
     }
 
     public Object getLast() {
-        return isEmpty() ? new ImmutableLinkedList() : this.listTail;
+        return isEmpty() ? new Node() : this.listTail;
     }
 
     public ImmutableLinkedList removeFirst() {
@@ -117,7 +117,7 @@ public class ImmutableLinkedList implements ImmutableList {
     public Object get(int index) {
         checkIndex(index);
 
-        ImmutableLinkedListNode node = getNode(index);
+        Node node = getNode(index);
 
         return node.getVal();
     }
@@ -126,8 +126,8 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList remove(int index) {
         checkIndex(index);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead);
-        ImmutableLinkedListNode exNode = imList.getNode(index);
-        ImmutableLinkedListNode exNodeParent = exNode.getHead();
+        Node exNode = imList.getNode(index);
+        Node exNodeParent = exNode.getHead();
         exNodeParent.setTail(exNode.getTail());
         return imList;
     }
@@ -145,7 +145,7 @@ public class ImmutableLinkedList implements ImmutableList {
     public int indexOf(Object e) {
         checkNull(e);
         int i = 0;
-        ImmutableLinkedListNode current = this.listHead;
+        Node current = this.listHead;
         while (i < this.length) {
             if (current.getVal().equals(e)) {
                 return i;
@@ -174,7 +174,7 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public Object[] toArray() {
         Object[] arr = new Object[this.length];
-        ImmutableLinkedListNode curr = this.listHead;
+        Node curr = this.listHead;
         for (int i = 0; i < arr.length; i++) {
             arr[i] = curr.getVal();
             curr = curr.getTail();
@@ -188,7 +188,7 @@ public class ImmutableLinkedList implements ImmutableList {
         if (isEmpty()) {
             return "";
         } else {
-            ImmutableLinkedListNode curr = this.listHead;
+            Node curr = this.listHead;
             StringBuilder s = new StringBuilder(String.format("%s", curr.getVal()));
             if (this.length == 1) {
                 return s.toString();
@@ -201,8 +201,8 @@ public class ImmutableLinkedList implements ImmutableList {
         }
     }
 
-    private ImmutableLinkedListNode getNode(int index) {
-        ImmutableLinkedListNode tempNode = this.listHead;
+    private Node getNode(int index) {
+        Node tempNode = this.listHead;
         int counter = 0;
         while (counter != index) {
             tempNode = tempNode.getTail();
@@ -222,5 +222,53 @@ public class ImmutableLinkedList implements ImmutableList {
             throw new ArrayIndexOutOfBoundsException("Index is out of array!");
         }
     }
+
+    private class Node {
+        private Node head;
+        private Node tail;
+        private Object val;
+
+        public Node() {}
+
+        public Node(Object val) {
+            this.val = val;
+        }
+
+        public Node(Node head, Object val) {
+            this.head = head;
+            this.val = val;
+        }
+
+        public Node(Node head, Node tail, Object val) {
+            this.head = head;
+            this.tail = tail;
+            this.val = val;
+        }
+
+        public Node getHead() {
+            return head;
+        }
+
+        public void setHead(Node head) {
+            this.head = head;
+        }
+
+        public Node getTail() {
+            return tail;
+        }
+
+        public void setTail(Node tail) {
+            this.tail = tail;
+        }
+
+        public Object getVal() {
+            return val;
+        }
+
+        public void setVal(Object val) {
+            this.val = val;
+        }
+    }
+
 
 }
