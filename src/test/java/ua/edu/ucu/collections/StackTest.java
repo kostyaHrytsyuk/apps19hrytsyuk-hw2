@@ -10,14 +10,23 @@ public class StackTest {
     private Object[] arr;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         arr = new Object[] { 1, "Hi!", true, 2.78};
         stack = new Stack(arr);
     }
 
     @Test
     public void testPeek() {
-        assertEquals(1, stack.peek());
+        Object expectedValue = arr[arr.length - 1];
+
+        assertEquals(expectedValue, stack.peek());
+    }
+
+    @Test
+    public void testPeekWithEmptyStack() {
+        Stack empty = new Stack();
+
+        assertNull(empty.peek());
     }
 
     @Test
@@ -27,7 +36,7 @@ public class StackTest {
         Object topEl = stack.pop();
 
         assertEquals(expectedLength, stack.size());
-        assertEquals(topEl, arr[0]);
+        assertEquals(topEl, arr[arr.length - 1]);
     }
 
     @Test

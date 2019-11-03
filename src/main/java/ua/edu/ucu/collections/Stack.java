@@ -15,25 +15,22 @@ public class Stack implements DataStructure {
     }
 
     public Object peek() {
-        return this.linkedList.getFirst();
+        return this.linkedList.getLast();
     }
 
     public Object pop() {
         Object head = peek();
-        this.linkedList = this.linkedList.removeFirst();
+        this.linkedList = this.linkedList.removeLast();
 
         return head;
     }
 
     public void push(Object e) {
-        this.linkedList = this.linkedList.addFirst(e);
+        this.linkedList = this.linkedList.addLast(e);
     }
 
     public int size() {
         return this.linkedList.size();
     }
 
-    public String print() {
-        return this.linkedList.toString();
-    }
 }

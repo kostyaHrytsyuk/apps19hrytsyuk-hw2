@@ -128,7 +128,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
         if (imList.isEmpty()) {
             return add(e);
-        } else if (imList.length == 1) {
+        } else {
             setRelations(imList.listHead, node);
             imList.listTail = node;
         }
@@ -147,7 +147,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public Object getLast() {
         if (isEmpty()) {
-            return new Object();
+            return null;
         } else {
             return this.listTail.getVal();
         }
