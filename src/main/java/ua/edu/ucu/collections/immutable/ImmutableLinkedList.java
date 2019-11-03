@@ -47,8 +47,8 @@ public class ImmutableLinkedList implements ImmutableList {
         Node node = new Node(e);
         Node tempNode = imList.getNode(index);
 
-        node.setTail(tempNode.getTail());
-        setRelations(tempNode, node);
+        setRelations(tempNode.getHead(), node);
+        setRelations(node, tempNode);
         imList.length++;
         return imList;
     }
@@ -89,14 +89,12 @@ public class ImmutableLinkedList implements ImmutableList {
         checkIndex(index);
         checkNull(c);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
-        Node curr = imList.getNode(index);
+        Node curr = imList.getNode(index).getHead();
         Node nodeTail = curr.getTail();
         Node tempNode;
         for (Object o : c) {
             tempNode = new Node(o);
             setRelations(curr, tempNode);
-//            tempNode.setHead(curr)
-//            curr.setTail(tempNode);
             curr = tempNode;
         }
         curr.setTail(nodeTail);
@@ -286,7 +284,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     private void checkIndex(int index) {
-        if (index < 0 && index >= this.length) {
+        if (index < 0 || index >= this.length) {
             throw new ArrayIndexOutOfBoundsException("Index is out of array!");
         }
     }
@@ -303,42 +301,31 @@ public class ImmutableLinkedList implements ImmutableList {
 
         public Node() { }
 
-        public Node(Object val) {
+        Node(Object val) {
             this.val = val;
         }
 
-        public Node(Node head, Object val) {
-            this.head = head;
-            this.val = val;
-        }
-
-        public Node(Node head, Node tail, Object val) {
-            this.head = head;
-            this.tail = tail;
-            this.val = val;
-        }
-
-        public Node getHead() {
+        Node getHead() {
             return head;
         }
 
-        public void setHead(Node head) {
+        void setHead(Node head) {
             this.head = head;
         }
 
-        public Node getTail() {
+        Node getTail() {
             return tail;
         }
 
-        public void setTail(Node tail) {
+        void setTail(Node tail) {
             this.tail = tail;
         }
 
-        public Object getVal() {
+        Object getVal() {
             return val;
         }
 
-        public void setVal(Object val) {
+        void setVal(Object val) {
             this.val = val;
         }
     }
