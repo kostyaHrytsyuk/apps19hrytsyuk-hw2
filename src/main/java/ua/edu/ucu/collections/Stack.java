@@ -1,8 +1,9 @@
 package ua.edu.ucu.collections;
 
+import ua.edu.ucu.collections.immutable.DataStructure;
 import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
 
-public class Stack {
+public class Stack implements DataStructure {
     private ImmutableLinkedList linkedList;
 
     public Object peek() {
