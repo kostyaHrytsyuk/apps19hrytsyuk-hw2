@@ -11,7 +11,7 @@ public class Stack implements DataStructure {
     }
 
     public Stack(Object[] o) {
-        this.linkedList = new ImmutableLinkedList().addAll(o);
+        this.linkedList = new ImmutableLinkedList(o);
     }
 
     public Object peek() {
@@ -25,7 +25,15 @@ public class Stack implements DataStructure {
         return head;
     }
 
-    void push(Object e) {
+    public void push(Object e) {
         this.linkedList = this.linkedList.addFirst(e);
+    }
+
+    public int size() {
+        return this.linkedList.size();
+    }
+
+    public String print() {
+        return this.linkedList.toString();
     }
 }

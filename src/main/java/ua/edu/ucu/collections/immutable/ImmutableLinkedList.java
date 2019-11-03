@@ -115,6 +115,7 @@ public class ImmutableLinkedList implements ImmutableList {
         }
         else {
             setRelations(node, imList.listHead);
+            imList.listHead = node;
         }
         imList.length++;
         return imList;
@@ -138,7 +139,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public Object getFirst() {
         if (isEmpty()) {
-            return new Object();
+            return null;
         } else {
             return this.listHead.getVal();
         }
@@ -260,8 +261,9 @@ public class ImmutableLinkedList implements ImmutableList {
                 return s.toString();
             }
             curr = curr.getTail();
-            while (curr.getVal() != null) {
+            while (curr != null) {
                 s.append(String.format(" ,%s", curr.getVal()));
+                curr = curr.getTail();
             }
             return s.toString();
         }

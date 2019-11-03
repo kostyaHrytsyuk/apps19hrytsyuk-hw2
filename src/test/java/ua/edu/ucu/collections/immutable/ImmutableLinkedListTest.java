@@ -11,12 +11,7 @@ public class ImmutableLinkedListTest {
 
     @Before
     public void setUp() {
-        Object[] arr = { 1, "Hi!", true, 2.78};
-        this.linkedList = new ImmutableLinkedList(arr);
-    }
-
-    @After
-    public void tearDown() throws Exception {
+        this.linkedList = new ImmutableLinkedList(new Object[] { 1, "Hi!", true, 2.78});
     }
 
     @Test
@@ -26,7 +21,7 @@ public class ImmutableLinkedListTest {
         int expectedLength = this.linkedList.size() + 1;
 
         this.linkedList = this.linkedList.add(o);
-        assertEquals(this.linkedList.size(), expectedLength);
+        assertEquals(expectedLength, this.linkedList.size());
     }
 
     @Test(expected = NullPointerException.class)

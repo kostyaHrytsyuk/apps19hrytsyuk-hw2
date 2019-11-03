@@ -26,7 +26,11 @@ public class Queue implements DataStructure {
         return head;
     }
 
-    void enqueue(Object e) {
+    public void enqueue(Object e) {
         this.linkedList = this.linkedList.add(e);
+    }
+
+    public int size() {
+        return this.linkedList.size();
     }
 }

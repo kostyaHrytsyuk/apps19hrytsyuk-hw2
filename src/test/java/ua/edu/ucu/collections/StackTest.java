@@ -6,28 +6,61 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class StackTest {
-    
-    @Test
-    public void testSomeMethod() {
-    }
+    private Stack stack;
+    private Object[] arr;
 
     @Before
     public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void peek() {
+        arr = new Object[] { 1, "Hi!", true, 2.78};
+        stack = new Stack(arr);
     }
 
     @Test
-    public void pop() {
+    public void testPeek() {
+        assertEquals(1, stack.peek());
     }
 
     @Test
-    public void push() {
+    public void testPop() {
+        int expectedLength = stack.size() - 1;
+
+        Object topEl = stack.pop();
+
+        assertEquals(expectedLength, stack.size());
+        assertEquals(topEl, arr[0]);
+    }
+
+    @Test
+    public void testPopWithEmptyStack() {
+        Stack empty = new Stack();
+
+        int expectedLength = 0;
+        Object topEl = empty.pop();
+        assertEquals(expectedLength, empty.size());
+        assertNull(topEl);
+    }
+
+    @Test
+    public void testPush() {
+        int expectedLength = stack.size() + 1;
+
+        Object topEl = new Queue();
+
+        stack.push(topEl);
+        
+        assertEquals(expectedLength, stack.size());
+        assertEquals(topEl, stack.peek());
+    }
+
+    @Test
+    public void testSize() {
+        assertEquals(this.arr.length, this.stack.size());
+    }
+
+    @Test
+    public void testSizeOnEmptyStack() {
+        Stack empty = new Stack();
+
+        assertEquals(0, empty.size());
     }
 }
