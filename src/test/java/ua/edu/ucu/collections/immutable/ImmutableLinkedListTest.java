@@ -31,6 +31,7 @@ public class ImmutableLinkedListTest {
 
     @Test(expected = NullPointerException.class)
     public void testAddWithEmptyElement() {
+        this.linkedList.add(null);
     }
 
     @Test

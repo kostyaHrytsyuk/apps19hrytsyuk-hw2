@@ -291,7 +291,7 @@ public class ImmutableLinkedList implements ImmutableList {
         tailNode.setHead(headNode);
     }
 
-    private class Node {
+    private static class Node {
         private Node _head;
         private Node _tail;
         private Object _val;
