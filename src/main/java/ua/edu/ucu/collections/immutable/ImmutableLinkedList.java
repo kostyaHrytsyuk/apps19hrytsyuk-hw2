@@ -67,8 +67,7 @@ public class ImmutableLinkedList implements ImmutableList {
         } else if (imList.length == 1) {
             curr = imList.listHead;
             setRelations(imList.listHead, imList.listTail);
-        }
-        else {
+        } else {
             curr = imList.listTail;
             j = 0;
         }

@@ -70,6 +70,11 @@ public class ImmutableLinkedListTest {
         assertEquals(inArr[inArr.length-1], this.linkedList.getLast());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testAddAllWithNullValue() {
+        this.linkedList.addAll(null);
+    }
+
     @Test
     public void testAddAllByIndex() {
         int expectedLength = this.linkedList.size() + inArr.length;
@@ -80,9 +85,19 @@ public class ImmutableLinkedListTest {
         assertEquals(inArr[0], this.linkedList.get(index));
     }
 
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testAddAllByNegativeIndex() {
+        this.linkedList.addAll(-5, inArr);
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testAddAllByWrongIndex() {
+        this.linkedList.addAll(this.linkedList.size() + 5, inArr);
+    }
+
     @Test(expected = NullPointerException.class)
-    public void testAddAllWithNullValue() {
-        this.linkedList.addAll(null);
+    public void testAddAllByWrongIndexWithNull() {
+        this.linkedList.addAll(0, null);
     }
 
     @Test
