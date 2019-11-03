@@ -119,6 +119,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     public ImmutableLinkedList addLast(Object e) {
+        checkNull(e);
         Node node = new Node(e);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
@@ -152,7 +153,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList removeFirst() {
         if (isEmpty()) {
-            return new ImmutableLinkedList();
+            return null;
         } else {
             ImmutableLinkedList imList =
                     new ImmutableLinkedList(this.listHead, this.listTail, this.length);
@@ -164,11 +165,11 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList removeLast() {
         if (isEmpty()) {
-            return new ImmutableLinkedList();
+            return null;
         } else {
             ImmutableLinkedList imList =
                     new ImmutableLinkedList(this.listHead, this.listTail, this.length);
-            imList.listTail.setHead(imList.listTail.getHead());
+            imList.listTail = imList.listTail.getHead();
             imList.length--;
             return imList;
         }

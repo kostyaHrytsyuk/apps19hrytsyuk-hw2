@@ -2,6 +2,7 @@ package ua.edu.ucu.collections.immutable;
 
 import org.junit.Before;
 import org.junit.Test;
+import ua.edu.ucu.collections.Queue;
 import ua.edu.ucu.collections.Stack;
 
 import java.util.Date;
@@ -10,11 +11,12 @@ import static org.junit.Assert.*;
 
 public class ImmutableLinkedListTest {
     private ImmutableLinkedList linkedList;
+    private Object[] testArr = new Object[] { 1, "Hi!", true, 2.78};
     private Object[] inArr = new Object[] {5, false, new Date(), "Hello"};
 
     @Before
     public void setUp() {
-        this.linkedList = new ImmutableLinkedList(new Object[] { 1, "Hi!", true, 2.78});
+        this.linkedList = new ImmutableLinkedList(testArr);
     }
 
     @Test
@@ -101,27 +103,93 @@ public class ImmutableLinkedListTest {
     }
 
     @Test
-    public void addFirst() {
+    public void testAddFirst() {
+        Queue queue = new Queue();
+
+        int expectedLength = this.linkedList.size() + 1;
+
+        this.linkedList = this.linkedList.addFirst(queue);
+
+        assertEquals(expectedLength, this.linkedList.size());
+        assertEquals(queue, this.linkedList.getFirst());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAddFirstWithNull() {
+        this.linkedList.addFirst(null);
     }
 
     @Test
-    public void addLast() {
+    public void testAddLast() {
+        Queue queue = new Queue();
+
+        int expectedLength = this.linkedList.size() + 1;
+
+        this.linkedList = this.linkedList.addLast(queue);
+
+        assertEquals(expectedLength, this.linkedList.size());
+        assertEquals(queue, this.linkedList.getLast());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAddLastWithNull() {
+        this.linkedList.addLast(null);
     }
 
     @Test
-    public void getFirst() {
+    public void testGetFirst() {
+        Object expectedValue = testArr[0];
+
+        assertEquals(expectedValue, this.linkedList.getFirst());
     }
 
     @Test
-    public void getLast() {
+    public void testGetFirstFromEmptyList() {
+        assertNull(new ImmutableLinkedList().getFirst());
     }
 
     @Test
-    public void removeFirst() {
+    public void testGetLast() {
+        Object expectedValue = testArr[testArr.length - 1];
+
+        assertEquals(expectedValue, this.linkedList.getLast());
+    }
+
+    @Test
+    public void testGetLastFromEmptyList() {
+        assertNull(new ImmutableLinkedList().getLast());
+    }
+
+    @Test
+    public void testRemoveFirst() {
+        int expectedLength = this.linkedList.size() - 1;
+        Object expectedElement = testArr[1];
+
+        this.linkedList = this.linkedList.removeFirst();
+
+        assertEquals(expectedLength, this.linkedList.size());
+        assertEquals(expectedElement, this.linkedList.getFirst());
+    }
+
+    @Test
+    public void testRemoveFirstFromEmptyList() {
+        assertNull(new ImmutableLinkedList().removeFirst());
     }
 
     @Test
     public void removeLast() {
+        int expectedLength = this.linkedList.size() - 1;
+        Object expectedElement = testArr[testArr.length - 2];
+
+        this.linkedList = this.linkedList.removeLast();
+
+        assertEquals(expectedLength, this.linkedList.size());
+        assertEquals(expectedElement, this.linkedList.getLast());
+    }
+
+    @Test
+    public void testRemoveLastFromEmptyList() {
+        assertNull(new ImmutableLinkedList().removeLast());
     }
 
     @Test
