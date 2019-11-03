@@ -47,7 +47,7 @@ public class StackTest {
         Object topEl = new Queue();
 
         stack.push(topEl);
-        
+
         assertEquals(expectedLength, stack.size());
         assertEquals(topEl, stack.peek());
     }

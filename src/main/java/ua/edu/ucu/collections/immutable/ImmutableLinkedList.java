@@ -78,9 +78,9 @@ public class ImmutableLinkedList implements ImmutableList {
             tempNode = new Node(c[i]);
             setRelations(curr, tempNode);
             curr = tempNode;
+            imList.length++;
         }
         imList.listTail = curr;
-        imList.length += c.length;
         return imList;
     }
 
