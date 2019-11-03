@@ -38,13 +38,13 @@ public class ImmutableLinkedListTest {
     @Test
     public void testAddByIndex() {
         Stack stack = new Stack();
-
+        int index = 2;
         int expectedLength = this.linkedList.size() + 1;
 
-        this.linkedList = this.linkedList.add(2, stack);
+        this.linkedList = this.linkedList.add(index, stack);
 
         assertEquals(expectedLength, this.linkedList.size());
-        assertEquals(stack, this.linkedList.get(2));
+        assertEquals(stack, this.linkedList.get(index));
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
@@ -177,7 +177,7 @@ public class ImmutableLinkedListTest {
     }
 
     @Test
-    public void removeLast() {
+    public void testRemoveLast() {
         int expectedLength = this.linkedList.size() - 1;
         Object expectedElement = testArr[testArr.length - 2];
 
@@ -193,20 +193,85 @@ public class ImmutableLinkedListTest {
     }
 
     @Test
-    public void get() {
+    public void testGetByIndex() {
+        int index = 1;
+        Object expectedValue = testArr[index];
+
+        assertEquals(expectedValue, this.linkedList.get(index));
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testGetByNegativeIndex() {
+        this.linkedList.get(-5);
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testGetByWrongIndex() {
+        this.linkedList.get(this.linkedList.size());
     }
 
     @Test
-    public void remove() {
+    public void testRemoveByIndex() {
+        int index = 2;
+        int expectedLength = this.linkedList.size() - 1;
+        Object expectedElement = testArr[index+1];
+
+        this.linkedList = this.linkedList.remove(index);
+
+        assertEquals(expectedLength, this.linkedList.size());
+        assertEquals(expectedElement, this.linkedList.get(index));
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testRemoveByNegativeIndex() {
+        this.linkedList.remove(-5);
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testRemoveByWrongIndex() {
+        this.linkedList.remove(this.linkedList.size());
     }
 
     @Test
     public void set() {
+        Stack stack = new Stack();
+        int index = 2;
+        int expectedLength = this.linkedList.size();
+
+        this.linkedList = this.linkedList.set(index, stack);
+
+        assertEquals(expectedLength, this.linkedList.size());
+        assertEquals(stack, this.linkedList.get(index));
+
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testSetByNegativeIndex() {
+        this.linkedList.set(-5, null);
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void testSetByWrongIndex() { this.linkedList.set(this.linkedList.size(), null); }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetByIndexWithNull() { this.linkedList.set(1, null); }
+
+    @Test
+    public void testIndexOfExistingValue() {
+        int index = 2;
+        Object expectedValue = this.linkedList.get(index);
+
+        assertEquals(index, this.linkedList.indexOf(expectedValue));
     }
 
     @Test
-    public void indexOf() {
+    public void testIndexOfMissingValue() {
+        assertEquals(-1, this.linkedList.indexOf(false));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void testIndexOfWithNull() { this.linkedList.indexOf(null); }
+
 
     @Test
     public void size() {
