@@ -5,7 +5,7 @@ public class ImmutableLinkedList implements ImmutableList {
     private Node listTail;
     private int length;
 
-    public ImmutableLinkedList() {}
+    public ImmutableLinkedList() { }
 
     private ImmutableLinkedList(Node head) {
         this.listHead = head;
@@ -246,7 +246,7 @@ public class ImmutableLinkedList implements ImmutableList {
         private Node _tail;
         private Object _val;
 
-        public Node() {}
+        public Node() { }
 
         public Node(Object val) {
             this._val = val;
@@ -284,7 +284,7 @@ public class ImmutableLinkedList implements ImmutableList {
         }
 
         public void setVal(Object val) {
-            this._val = _val;
+            this._val = val;
         }
     }
 
