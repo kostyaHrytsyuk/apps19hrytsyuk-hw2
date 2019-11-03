@@ -46,10 +46,19 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public ImmutableLinkedList addAll(Object[] c) {
         checkNull(c);
+        int j;
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead);
+        if (this.listHead == null) {
+            imList.listHead.setVal(c[0]);
+            imList.listTail = imList.listHead;
+            j = 1;
+        }
+        else {
+            j = 0;
+        }
         Node tempNode;
 
-        for (int i = 0; i < c.length; i++) {
+        for (int i = j; i < c.length; i++) {
             tempNode = new Node(c[i]);
             tempNode.setHead(imList.listTail);
             imList.listTail.setTail(tempNode);
