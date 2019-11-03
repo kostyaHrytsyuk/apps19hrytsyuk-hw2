@@ -30,7 +30,12 @@ public class Stack implements DataStructure {
     }
 
     public int size() {
-        return this.linkedList.size();
+        if (this.linkedList != null) {
+            return this.linkedList.size();
+        } else {
+            return 0;
+        }
+
     }
 
 }
