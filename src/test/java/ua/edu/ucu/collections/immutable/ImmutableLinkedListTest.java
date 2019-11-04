@@ -131,6 +131,16 @@ public class ImmutableLinkedListTest {
         assertEquals(queue, this.linkedList.getLast());
     }
 
+    @Test
+    public void testAddLastToEmpty() {
+        Queue queue = new Queue();
+        int expectedLength = 1;
+
+        this.linkedList = new ImmutableLinkedList().addLast(queue);
+
+        assertEquals(expectedLength, this.linkedList.size());
+    }
+
     @Test(expected = NullPointerException.class)
     public void testAddLastWithNull() {
         this.linkedList.addLast(null);
@@ -301,5 +311,15 @@ public class ImmutableLinkedListTest {
     @Test
     public void testToString() {
         assertTrue(this.linkedList.toString() instanceof String);
+    }
+
+    @Test
+    public void testToStringEmpty() {
+        assertEquals("", new ImmutableLinkedList().toString());
+    }
+
+    @Test
+    public void testToStringOneElement() {
+        assertEquals(1, new ImmutableLinkedList(new Object[]{"a"}).toString().length());
     }
 }
