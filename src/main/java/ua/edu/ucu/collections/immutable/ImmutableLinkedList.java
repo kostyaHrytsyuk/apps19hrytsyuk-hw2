@@ -1,5 +1,8 @@
 package ua.edu.ucu.collections.immutable;
 
+import static ua.edu.ucu.collections.Checker.checkIndex;
+import static ua.edu.ucu.collections.Checker.checkNull;
+
 public class ImmutableLinkedList implements ImmutableList {
     private Node listHead;
     private Node listTail;
@@ -15,8 +18,18 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     private ImmutableLinkedList(Node head, Node tail, int length) {
-        this.listHead = head;
-        this.listTail = tail;
+        if (head != null) {
+            this.listHead = head.copyOf();
+            if (tail != null) {
+                Node parent = this.listHead;
+                for (int i = 0; i < length-1; i++) {
+                    Node current = parent.getTail().copyOf();
+                    setRelations(parent, current);
+                    parent = current;
+                }
+                this.listTail = parent;
+            }
+        }
         this.length = length;
     }
 
@@ -30,6 +43,7 @@ public class ImmutableLinkedList implements ImmutableList {
             imList.listHead = node;
         } else if (imList.length == 1) {
             setRelations(imList.listHead, node);
+            imList.listTail = node;
         } else {
             setRelations(this.listTail, node);
             imList.listTail = node;
@@ -40,7 +54,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList add(int index, Object e) {
-        checkIndex(index);
+        checkIndex(index, this);
         checkNull(e);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
@@ -85,7 +99,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList addAll(int index, Object[] c) {
-        checkIndex(index);
+        checkIndex(index, this);
         checkNull(c);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node curr = imList.getNode(index).getHead();
@@ -177,7 +191,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        checkIndex(index);
+        checkIndex(index, this);
 
         Node node = getNode(index);
 
@@ -186,7 +200,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList remove(int index) {
-        checkIndex(index);
+        checkIndex(index, this);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node exNode = imList.getNode(index);
@@ -198,7 +212,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList set(int index, Object e) {
-        checkIndex(index);
+        checkIndex(index, this);
         checkNull(e);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
@@ -277,18 +291,6 @@ public class ImmutableLinkedList implements ImmutableList {
         return tempNode;
     }
 
-    private void checkNull(Object o) {
-        if (o == null) {
-            throw new NullPointerException("New object is null!");
-        }
-    }
-
-    private void checkIndex(int index) {
-        if (index < 0 || index >= this.length) {
-            throw new ArrayIndexOutOfBoundsException("Index is out of array!");
-        }
-    }
-
     private void setRelations(Node headNode, Node tailNode) {
         headNode.setTail(tailNode);
         tailNode.setHead(headNode);
@@ -302,6 +304,12 @@ public class ImmutableLinkedList implements ImmutableList {
         public Node() { }
 
         Node(Object val) {
+            this.val = val;
+        }
+
+        private Node(Node head, Node tail, Object val){
+            this.head = head;
+            this.tail = tail;
             this.val = val;
         }
 
@@ -327,6 +335,10 @@ public class ImmutableLinkedList implements ImmutableList {
 
         void setVal(Object val) {
             this.val = val;
+        }
+
+        Node copyOf() {
+            return new Node(this.head, this.tail, this.val);
         }
     }
 

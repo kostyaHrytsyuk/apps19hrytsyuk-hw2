@@ -1,15 +1,46 @@
 package ua.edu.ucu.collections.immutable;
 
-public class ImmutableArrayList implements ImmutableList {
+import java.util.Arrays;
 
-    @Override
-    public ImmutableArrayList add(Object e) {
-        return null;
+import static ua.edu.ucu.collections.Checker.checkIndex;
+import static ua.edu.ucu.collections.Checker.checkNull;
+
+public class ImmutableArrayList implements ImmutableList {
+    private int length;
+    private Object[] innerArray;
+
+    public ImmutableArrayList() {this.innerArray = new Object[0];}
+
+    private ImmutableArrayList(Object[] arr) {
+        this.innerArray = Arrays.copyOf(arr, arr.length);
+        this.length = this.innerArray.length;
     }
 
     @Override
+    public ImmutableArrayList add(Object e) {
+        checkNull(e);
+//        Object[] tempArr = getExtendedArray(1);
+//        tempArr[tempArr.length-1] = e;
+//        return new ImmutableArrayList(tempArr);
+        return add(this.length, e);
+    }
+
+    private Object[] getExtendedArray(int sizeOfNewElements){
+        Object[] tempArr = new Object[this.length + sizeOfNewElements];
+        return tempArr = Arrays.copyOf(this.innerArray, this.length + sizeOfNewElements);
+    }
+
+
+    @Override
     public ImmutableArrayList add(int index, Object e) {
-        return null;
+        checkIndex(index, this);
+        checkNull(e);
+        Object[] tempArr = getExtendedArray(1);
+        for (int i = index; i < tempArr.length-1; i++) {
+            tempArr[i+1] = tempArr[i];
+        }
+        tempArr[index] = e;
+        return new ImmutableArrayList(tempArr);
     }
 
     @Override
@@ -24,7 +55,8 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        return null;
+        checkIndex(index, this);
+        return this.innerArray[index];
     }
 
     @Override
@@ -44,21 +76,25 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public int size() {
-        return 0;
+        return this.length;
     }
 
     @Override
     public ImmutableArrayList clear() {
-        return null;
+        return new ImmutableArrayList();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.length > 0;
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] arr = new Object[this.length];
+        for (int i = 0; i < this.length; i++) {
+            arr[i] = this.get(i);
+        }
+        return arr;
     }
 }
