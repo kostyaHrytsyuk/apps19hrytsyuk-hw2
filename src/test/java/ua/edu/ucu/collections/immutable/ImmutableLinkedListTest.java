@@ -72,6 +72,18 @@ public class ImmutableLinkedListTest {
         assertEquals(inArr[inArr.length-1], this.linkedList.getLast());
     }
 
+    @Test
+    public void testAddAllToOneElementList() {
+        ImmutableLinkedList list = new ImmutableLinkedList().add(8);
+
+        int expectedLength = list.size() + inArr.length;
+
+        list = list.addAll(inArr);
+
+        assertEquals(expectedLength, list.size());
+        assertEquals(inArr[inArr.length-1], list.getLast());
+    }
+
     @Test(expected = NullPointerException.class)
     public void testAddAllWithNullValue() {
         this.linkedList.addAll(null);

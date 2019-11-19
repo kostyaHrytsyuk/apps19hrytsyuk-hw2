@@ -66,6 +66,14 @@ public final class ImmutableLinkedList implements ImmutableList {
         } else if (imList.length == 1) {
             setRelations(imList.listHead, node);
             imList.listTail = node;
+            Node curr = node;
+            Node tempNode;
+            for (int i = 1; i < c.length; i++) {
+                tempNode = new Node(c[i]);
+                setRelations(curr, tempNode);
+                curr = tempNode;
+            }
+            imList.listTail = curr;
         } else if (imList.length == index){
             Node curr = imList.getNode(index-1);
             Node tempNode;
