@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Dispatcher {
 
     public static void main(String[] args) {
-//        functionalityTest(new ImmutableLinkedList());
+        functionalityTest(new ImmutableLinkedList());
         functionalityTest(new ImmutableArrayList());
 
 
@@ -48,9 +48,9 @@ public class Dispatcher {
         sameResult(b, new Object[]{1, 2, 3, 4, 5, 6, 7});
 
         b = b.add(8);
-//        b = b.add(b.size(), 9);
+        b = b.add(b.size(), 9);
 //        System.out.println(b);
-//        sameResult(b, new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        sameResult(b, new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
 
 
 //        System.out.println(b);

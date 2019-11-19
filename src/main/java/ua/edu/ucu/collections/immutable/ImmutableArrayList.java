@@ -50,17 +50,29 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList remove(int index) {
-        return null;
+        checkIndex(index, this, false);
+        Object[] tempArr = new Object[this.length-1];
+        System.arraycopy(this.innerArray,0, tempArr,0, index);
+        System.arraycopy(this.innerArray, index+1, tempArr, index, this.length - index - 1);
+        return new ImmutableArrayList(tempArr);
     }
 
     @Override
     public ImmutableArrayList set(int index, Object e) {
-        return null;
+        checkIndex(index, this, false);
+        Object[] tempArr = Arrays.copyOf(this.innerArray, this.length);
+        tempArr[index] = e;
+        return new ImmutableArrayList(tempArr);
     }
 
     @Override
     public int indexOf(Object e) {
-        return 0;
+        for (int i = 0; i < this.length; i++) {
+            if (this.innerArray[i].equals(e)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
