@@ -5,7 +5,7 @@ import java.util.Arrays;
 import static ua.edu.ucu.collections.Checker.checkIndex;
 import static ua.edu.ucu.collections.Checker.checkNull;
 
-public class ImmutableArrayList implements ImmutableList {
+public final class ImmutableArrayList implements ImmutableList {
     private int length;
     private Object[] innerArray;
 
@@ -36,9 +36,8 @@ public class ImmutableArrayList implements ImmutableList {
         checkIndex(index, this);
         checkNull(e);
         Object[] tempArr = getExtendedArray(1);
-        for (int i = index; i < tempArr.length-1; i++) {
-            tempArr[i+1] = tempArr[i];
-        }
+        if (tempArr.length - 1 - index >= 0)
+            System.arraycopy(tempArr, index, tempArr, index + 1, tempArr.length - 1 - index);
         tempArr[index] = e;
         return new ImmutableArrayList(tempArr);
     }

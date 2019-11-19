@@ -3,7 +3,7 @@ package ua.edu.ucu.collections.immutable;
 import static ua.edu.ucu.collections.Checker.checkIndex;
 import static ua.edu.ucu.collections.Checker.checkNull;
 
-public class ImmutableLinkedList implements ImmutableList {
+public final class ImmutableLinkedList implements ImmutableList {
     private Node listHead;
     private Node listTail;
     private int length;
