@@ -19,7 +19,6 @@ public class Dispatcher {
     public static void functionalityTest(ImmutableList testList){
         ImmutableList a = testList;
         a = a.add(1);
-        ImmutableList z = a;
 //        System.out.println(a.toString());
         sameResult(a, new Object[]{1});
 

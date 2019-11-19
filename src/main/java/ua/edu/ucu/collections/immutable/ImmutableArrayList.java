@@ -18,38 +18,28 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList add(Object e) {
-        checkNull(e);
-//        Object[] tempArr = getExtendedArray(1);
-//        tempArr[tempArr.length-1] = e;
-//        return new ImmutableArrayList(tempArr);
         return add(this.length, e);
     }
 
-    private Object[] getExtendedArray(int sizeOfNewElements){
-        Object[] tempArr = new Object[this.length + sizeOfNewElements];
-        return tempArr = Arrays.copyOf(this.innerArray, this.length + sizeOfNewElements);
-    }
-
-
     @Override
     public ImmutableArrayList add(int index, Object e) {
-        checkIndex(index, this);
-        checkNull(e);
-        Object[] tempArr = getExtendedArray(1);
-        if (tempArr.length - 1 - index >= 0)
-            System.arraycopy(tempArr, index, tempArr, index + 1, tempArr.length - 1 - index);
-        tempArr[index] = e;
-        return new ImmutableArrayList(tempArr);
+        return addAll(index, new Object[] {e});
     }
 
     @Override
     public ImmutableArrayList addAll(Object[] c) {
-        return null;
+        return addAll(this.length, c);
     }
 
     @Override
     public ImmutableArrayList addAll(int index, Object[] c) {
-        return null;
+        checkIndex(index, this);
+        checkNull(c);
+        Object[] tempArr = getExtendedArray(c.length);
+        if (tempArr.length - 1 - index >= 0)
+            System.arraycopy(this.innerArray, index, tempArr, index + c.length, this.innerArray.length - index);
+        System.arraycopy(c, 0, tempArr, index, c.length);
+        return new ImmutableArrayList(tempArr);
     }
 
     @Override
@@ -95,5 +85,9 @@ public final class ImmutableArrayList implements ImmutableList {
             arr[i] = this.get(i);
         }
         return arr;
+    }
+
+    private Object[] getExtendedArray(int sizeOfNewElements){
+        return Arrays.copyOf(this.innerArray, this.length + sizeOfNewElements);
     }
 }
