@@ -35,67 +35,17 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList add(Object e) {
-//        checkNull(e);
-//        ImmutableLinkedList imList =
-//                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
-//        Node node = new Node(e);
-//        if (imList.isEmpty()) {
-//            imList.listHead = node;
-//        } else if (imList.length == 1) {
-//            setRelations(imList.listHead, node);
-//            imList.listTail = node;
-//        } else {
-//            setRelations(this.listTail, node);
-//            imList.listTail = node;
-//        }
-//        imList.length++;
-//        return imList;
         return add(this.length, e);    }
 
     @Override
     public ImmutableLinkedList add(int index, Object e) {
-//        checkIndex(index, this);
-//        checkNull(e);
-//        ImmutableLinkedList imList =
-//                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
-//        Node node = new Node(e);
-//        Node tempNode = imList.getNode(index);
-//
-//        setRelations(tempNode.getHead(), node);
-//        setRelations(node, tempNode);
-//        imList.length++;
-//        return imList;
+        checkNull(e);
         return addAll(index, new Object[] {e});
     }
 
     @Override
     public ImmutableLinkedList addAll(Object[] c) {
-        checkNull(c);
-        int j = 1;
-        ImmutableLinkedList imList =
-                new ImmutableLinkedList(this.listHead, this.listTail, this.length);
-        Node curr;
-        if (imList.isEmpty()) {
-            imList = imList.addFirst(c[0]);
-            curr = imList.listHead;
-            j = 1;
-        } else if (imList.length == 1) {
-            curr = imList.listHead;
-            setRelations(imList.listHead, imList.listTail);
-        } else {
-            curr = imList.listTail;
-            j = 0;
-        }
-        Node tempNode;
-
-        for (int i = j; i < c.length; i++) {
-            tempNode = new Node(c[i]);
-            setRelations(curr, tempNode);
-            curr = tempNode;
-            imList.length++;
-        }
-        imList.listTail = curr;
-        return imList;
+        return addAll(this.length, c);
     }
 
     @Override
@@ -117,11 +67,19 @@ public final class ImmutableLinkedList implements ImmutableList {
         } else if (imList.length == 1) {
             setRelations(imList.listHead, node);
             imList.listTail = node;
+        } else if (imList.length == index){
+            Node curr = imList.getNode(index-1);;
+            Node tempNode;
+            for (int i = 0; i < c.length; i++) {
+                tempNode = new Node(c[i]);
+                setRelations(curr, tempNode);
+                curr = tempNode;
+            }
+            imList.listTail = curr;
         } else {
             Node nodeTail = imList.getNode(index);
             setRelations(imList.getNode(index-1), node);
             Node curr = imList.getNode(index);
-
             Node tempNode;
             for (int i = 1; i < c.length; i++) {
                 tempNode = new Node(c[i]);
@@ -129,6 +87,7 @@ public final class ImmutableLinkedList implements ImmutableList {
                 curr = tempNode;
             }
             curr.setTail(nodeTail);
+            imList.listTail = nodeTail;
         }
         imList.length += c.length;
         return imList;
@@ -210,7 +169,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        checkIndex(index, this);
+        checkIndex(index, this, false);
 
         Node node = getNode(index);
 
@@ -219,7 +178,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList remove(int index) {
-        checkIndex(index, this);
+        checkIndex(index, this, false);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node exNode = imList.getNode(index);
@@ -231,7 +190,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList set(int index, Object e) {
-        checkIndex(index, this);
+        checkIndex(index, this, false);
         checkNull(e);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);

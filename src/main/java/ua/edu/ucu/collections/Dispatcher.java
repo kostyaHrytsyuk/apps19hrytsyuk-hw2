@@ -12,7 +12,6 @@ public class Dispatcher {
         functionalityTest(new ImmutableLinkedList());
         functionalityTest(new ImmutableArrayList());
 
-
         System.out.println("Congratulation! You make good work");
     }
 
@@ -39,7 +38,6 @@ public class Dispatcher {
         a = a.add(1, 2);
 //        System.out.println(a.toString());
         sameResult(a, new Object[]{1, 2, 2, 3, 4, 5, 6, 7});
-
 
         ImmutableList b = a.remove(1);
 //        System.out.println(a.toString());

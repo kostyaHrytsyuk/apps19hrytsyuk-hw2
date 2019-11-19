@@ -49,12 +49,12 @@ public class ImmutableLinkedListTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testAddByNegativeIndex() {
-        this.linkedList.add(-5,null);
+        this.linkedList.add(-5,5);
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testAddByWrongIndex() {
-        this.linkedList.add(this.linkedList.size() + 42,null);
+        this.linkedList.add(this.linkedList.size() + 42,42);
     }
 
     @Test(expected = NullPointerException.class)
