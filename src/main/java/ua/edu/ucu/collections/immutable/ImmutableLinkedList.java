@@ -74,7 +74,7 @@ public final class ImmutableLinkedList implements ImmutableList {
                 curr = tempNode;
             }
             imList.listTail = curr;
-        } else if (imList.length == index){
+        } else if (imList.length == index) {
             Node curr = imList.getNode(index-1);
             Node tempNode;
             for (int i = 0; i < c.length; i++) {

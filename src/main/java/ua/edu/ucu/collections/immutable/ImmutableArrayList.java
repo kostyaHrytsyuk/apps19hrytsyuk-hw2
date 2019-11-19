@@ -8,7 +8,7 @@ public final class ImmutableArrayList implements ImmutableList {
     private int length;
     private Object[] innerArray;
 
-    public ImmutableArrayList() {this.innerArray = new Object[0];}
+    public ImmutableArrayList() { this.innerArray = new Object[0]; }
 
     public ImmutableArrayList(Object[] arr) {
         this.innerArray = Arrays.copyOf(arr, arr.length);
@@ -35,8 +35,9 @@ public final class ImmutableArrayList implements ImmutableList {
         Checker.checkIndex(index, this);
         Checker.checkNull(c);
         Object[] tempArr = getExtendedArray(c.length);
-        if (tempArr.length - 1 - index >= 0)
+        if (tempArr.length - 1 - index >= 0) {
             System.arraycopy(this.innerArray, index, tempArr, index + c.length, this.innerArray.length - index);
+        }
         System.arraycopy(c, 0, tempArr, index, c.length);
         return new ImmutableArrayList(tempArr);
     }
@@ -51,7 +52,7 @@ public final class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList remove(int index) {
         Checker.checkIndex(index, this, false);
         Object[] tempArr = new Object[this.length-1];
-        System.arraycopy(this.innerArray,0, tempArr,0, index);
+        System.arraycopy(this.innerArray, 0, tempArr, 0, index);
         System.arraycopy(this.innerArray, index+1, tempArr, index, this.length - index - 1);
         return new ImmutableArrayList(tempArr);
     }
@@ -98,7 +99,7 @@ public final class ImmutableArrayList implements ImmutableList {
         return arr;
     }
 
-    private Object[] getExtendedArray(int sizeOfNewElements){
+    private Object[] getExtendedArray(int sizeOfNewElements) {
         return Arrays.copyOf(this.innerArray, this.length + sizeOfNewElements);
     }
 }
