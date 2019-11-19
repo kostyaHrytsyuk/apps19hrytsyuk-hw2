@@ -289,6 +289,12 @@ public class ImmutableLinkedListTest {
     }
 
     @Test
+    public void testZeroSize() {
+        int expectedValue = 0;
+        assertEquals(expectedValue , this.linkedList.clear().size());
+    }
+
+    @Test
     public void testClear() {
         assertTrue(this.linkedList.clear() instanceof ImmutableLinkedList);
     }

@@ -10,7 +10,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     public ImmutableArrayList() {this.innerArray = new Object[0];}
 
-    private ImmutableArrayList(Object[] arr) {
+    public ImmutableArrayList(Object[] arr) {
         this.innerArray = Arrays.copyOf(arr, arr.length);
         this.length = this.innerArray.length;
     }
@@ -86,7 +86,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public boolean isEmpty() {
-        return this.length > 0;
+        return this.length == 0;
     }
 
     @Override
