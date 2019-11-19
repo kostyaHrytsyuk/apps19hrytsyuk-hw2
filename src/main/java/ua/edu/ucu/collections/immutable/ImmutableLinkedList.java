@@ -1,7 +1,6 @@
 package ua.edu.ucu.collections.immutable;
 
-import static ua.edu.ucu.collections.Checker.checkIndex;
-import static ua.edu.ucu.collections.Checker.checkNull;
+import ua.edu.ucu.collections.Checker;
 
 public final class ImmutableLinkedList implements ImmutableList {
     private Node listHead;
@@ -39,7 +38,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList add(int index, Object e) {
-        checkNull(e);
+        Checker.checkNull(e);
         return addAll(index, new Object[] {e});
     }
 
@@ -50,8 +49,8 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList addAll(int index, Object[] c) {
-        checkIndex(index, this);
-        checkNull(c);
+        Checker.checkIndex(index, this);
+        Checker.checkNull(c);
         ImmutableLinkedList imList = new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node node = new Node(c[0]);
         if (imList.isEmpty()) {
@@ -68,7 +67,7 @@ public final class ImmutableLinkedList implements ImmutableList {
             setRelations(imList.listHead, node);
             imList.listTail = node;
         } else if (imList.length == index){
-            Node curr = imList.getNode(index-1);;
+            Node curr = imList.getNode(index-1);
             Node tempNode;
             for (int i = 0; i < c.length; i++) {
                 tempNode = new Node(c[i]);
@@ -94,7 +93,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     public ImmutableLinkedList addFirst(Object e) {
-        checkNull(e);
+        Checker.checkNull(e);
         Node node = new Node(e);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
@@ -111,7 +110,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     public ImmutableLinkedList addLast(Object e) {
-        checkNull(e);
+        Checker.checkNull(e);
         Node node = new Node(e);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
@@ -169,7 +168,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        checkIndex(index, this, false);
+        Checker.checkIndex(index, this, false);
 
         Node node = getNode(index);
 
@@ -178,7 +177,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList remove(int index) {
-        checkIndex(index, this, false);
+        Checker.checkIndex(index, this, false);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         Node exNode = imList.getNode(index);
@@ -190,8 +189,8 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList set(int index, Object e) {
-        checkIndex(index, this, false);
-        checkNull(e);
+        Checker.checkIndex(index, this, false);
+        Checker.checkNull(e);
         ImmutableLinkedList imList =
                 new ImmutableLinkedList(this.listHead, this.listTail, this.length);
         imList.getNode(index).setVal(e);
@@ -200,7 +199,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public int indexOf(Object e) {
-        checkNull(e);
+        Checker.checkNull(e);
         int i = 0;
         Node current = this.listHead;
         while (i < this.length) {

@@ -2,8 +2,7 @@ package ua.edu.ucu.collections.immutable;
 
 import java.util.Arrays;
 
-import static ua.edu.ucu.collections.Checker.checkIndex;
-import static ua.edu.ucu.collections.Checker.checkNull;
+import ua.edu.ucu.collections.Checker;
 
 public final class ImmutableArrayList implements ImmutableList {
     private int length;
@@ -33,8 +32,8 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList addAll(int index, Object[] c) {
-        checkIndex(index, this);
-        checkNull(c);
+        Checker.checkIndex(index, this);
+        Checker.checkNull(c);
         Object[] tempArr = getExtendedArray(c.length);
         if (tempArr.length - 1 - index >= 0)
             System.arraycopy(this.innerArray, index, tempArr, index + c.length, this.innerArray.length - index);
@@ -44,13 +43,13 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        checkIndex(index, this);
+        Checker.checkIndex(index, this);
         return this.innerArray[index];
     }
 
     @Override
     public ImmutableArrayList remove(int index) {
-        checkIndex(index, this, false);
+        Checker.checkIndex(index, this, false);
         Object[] tempArr = new Object[this.length-1];
         System.arraycopy(this.innerArray,0, tempArr,0, index);
         System.arraycopy(this.innerArray, index+1, tempArr, index, this.length - index - 1);
@@ -59,7 +58,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList set(int index, Object e) {
-        checkIndex(index, this, false);
+        Checker.checkIndex(index, this, false);
         Object[] tempArr = Arrays.copyOf(this.innerArray, this.length);
         tempArr[index] = e;
         return new ImmutableArrayList(tempArr);
