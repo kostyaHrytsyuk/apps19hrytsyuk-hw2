@@ -56,4 +56,10 @@ public class QueueTest {
 
         assertEquals(expectedLength, queue.size());
     }
+
+    @Test
+    public void testZeroSize() {
+        int expectedValue = 0;
+        assertEquals(expectedValue , new Queue().size());
+    }
 }

@@ -126,6 +126,20 @@ public class ImmutableLinkedListTest {
         assertEquals(queue, this.linkedList.getFirst());
     }
 
+    @Test
+    public void testAddFirstToEmptyList() {
+        Queue queue = new Queue();
+
+        this.linkedList = new ImmutableLinkedList();
+
+        int expectedLength = this.linkedList.size() + 1;
+
+        this.linkedList = this.linkedList.addFirst(queue);
+
+        assertEquals(expectedLength, this.linkedList.size());
+        assertEquals(queue, this.linkedList.getFirst());
+    }
+
     @Test(expected = NullPointerException.class)
     public void testAddFirstWithNull() {
         this.linkedList.addFirst(null);
